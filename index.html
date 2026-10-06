@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Твоё Имя] — создание сайтов для бизнеса</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a1a; line-height: 1.6; }
+
+    :root {
+      --brand: #2563eb;
+      --brand-dark: #1d4ed8;
+      --dark: #0f172a;
+      --gray: #64748b;
+      --light: #f1f5f9;
+    }
+
+    /* Шапка */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: #fff; padding: 16px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    .logo { font-size: 22px; font-weight: 800; }
+    .logo span { color: var(--brand); }
+    nav a { margin: 0 16px; text-decoration: none; color: #333; font-weight: 500; }
+    nav a:hover { color: var(--brand); }
+    .btn {
+      display: inline-block; padding: 12px 28px; border-radius: 8px;
+      text-decoration: none; font-weight: 600; cursor: pointer;
+      border: none; font-size: 15px; transition: 0.2s; text-align: center;
+    }
+    .btn-blue { background: var(--brand); color: #fff; }
+    .btn-blue:hover { background: var(--brand-dark); }
+    .btn-outline { border: 2px solid var(--brand); color: var(--brand); background: transparent; }
+    .btn-outline:hover { background: var(--brand); color: #fff; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+      color: #fff; padding: 100px 40px; text-align: center;
+    }
+    .hero h1 { font-size: 48px; margin-bottom: 16px; font-weight: 800; }
+    .hero h1 span { color: #60a5fa; }
+    .hero p { font-size: 20px; margin-bottom: 32px; opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .hero .btn { margin: 0 8px; }
+
+    /* Секции */
+    section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+    h2 { font-size: 36px; margin-bottom: 16px; text-align: center; font-weight: 800; }
+    h2 span { color: var(--brand); }
+    .subtitle { text-align: center; color: var(--gray); margin-bottom: 48px; font-size: 18px; }
+
+    /* Услуги */
+    .services { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .service {
+      background: #fff; border: 2px solid #e2e8f0; padding: 32px 24px;
+      border-radius: 12px; transition: 0.2s;
+    }
+    .service:hover { border-color: var(--brand); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(37,99,235,0.1); }
+    .service .icon { font-size: 40px; margin-bottom: 16px; }
+    .service h3 { font-size: 20px; margin-bottom: 12px; }
+    .service p { font-size: 14px; color: var(--gray); margin-bottom: 16px; }
+    .service .price { font-size: 18px; font-weight: 800; color: var(--brand); }
+
+    /* Цены */
+    .pricing { background: var(--light); border-radius: 16px; padding: 48px; }
+    .price-table { max-width: 700px; margin: 0 auto; }
+    .price-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 0; border-bottom: 1px solid #cbd5e1;
+    }
+    .price-row:last-child { border-bottom: none; }
+    .price-row .name { font-size: 17px; font-weight: 600; }
+    .price-row .desc { font-size: 14px; color: var(--gray); }
+    .price-row .amount { font-size: 22px; font-weight: 800; color: var(--brand); white-space: nowrap; }
+
+    /* Портфолио */
+    .portfolio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .work {
+      background: #fff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.06); transition: 0.2s;
+    }
+    .work:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.12); }
+    .work-img {
+      height: 200px; background: linear-gradient(135deg, var(--brand), #1e40af);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 64px; color: #fff;
+    }
+    .work-body { padding: 20px; }
+    .work-body h3 { font-size: 18px; margin-bottom: 8px; }
+    .work-body p { font-size: 14px; color: var(--gray); margin-bottom: 12px; }
+    .work-body a { color: var(--brand); font-weight: 600; text-decoration: none; font-size: 14px; }
+    .work-body a:hover { text-decoration: underline; }
+
+    /* Шаги */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .step { text-align: center; }
+    .step .num {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--brand); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; font-weight: 800; margin: 0 auto 16px;
+    }
+    .step h3 { font-size: 17px; margin-bottom: 8px; }
+    .step p { font-size: 14px; color: var(--gray); }
+
+    /* Форма */
+    .form-section { background: var(--dark); border-radius: 16px; padding: 48px; color: #fff; }
+    .form-section h2 { color: #fff; margin-bottom: 16px; }
+    .form-section > p { text-align: center; color: #94a3b8; margin-bottom: 32px; }
+    form { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+    input, textarea, select {
+      padding: 14px 16px; border: 2px solid #334155; border-radius: 8px;
+      font-size: 15px; font-family: inherit; background: #1e293b; color: #fff;
+      transition: 0.2s;
+    }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--brand); }
+    input::placeholder, textarea::placeholder { color: #64748b; }
+    textarea { resize: vertical; min-height: 100px; }
+    form .btn { width: 100%; padding: 16px; font-size: 16px; }
+
+    /* Подвал */
+    footer {
+      background: var(--dark); color: #fff; padding: 48px 40px 24px;
+      text-align: center;
+    }
+    footer .logo { margin-bottom: 24px; font-size: 24px; }
+    footer .contacts { margin-bottom: 24px; }
+    footer .contacts a { color: #fff; text-decoration: none; margin: 0 12px; }
+    footer .contacts a:hover { color: #60a5fa; }
+    footer .copy { font-size: 13px; color: #64748b; border-top: 1px solid #334155; padding-top: 24px; }
+
+    /* Адаптив */
+    @media (max-width: 900px) {
+      .services, .portfolio, .steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      header { padding: 12px 20px; flex-wrap: wrap; gap: 12px; }
+      nav { display: none; }
+      .hero { padding: 60px 20px; }
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 17px; }
+      section { padding: 48px 20px; }
+      h2 { font-size: 26px; }
+      .services, .portfolio, .steps { grid-template-columns: 1fr; }
+      .form-section { padding: 32px 20px; }
+      .pricing { padding: 32px 20px; }
+      .price-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">[Имя]<span>.</span>dev</div>
+  <nav>
+    <a href="#services">Услуги</a>
+    <a href="#prices">Цены</a>
+    <a href="#portfolio">Работы</a>
+    <a href="#contact">Контакты</a>
+  </nav>
+  <a href="#contact" class="btn btn-blue">Связаться</a>
+</header>
+
+<section class="hero">
+  <h1>Создаю сайты для <span>малого бизнеса</span></h1>
+  <p>Лендинги, сайты-визитки и доработки. Быстро, недорого, с поддержкой. Работаю по всей России удалённо.</p>
+  <a href="#services" class="btn btn-blue">Смотреть услуги</a>
+  <a href="#contact" class="btn btn-outline" style="border-color:#fff;color:#fff;">Обсудить проект</a>
+</section>
+
+<section id="services">
+  <h2>Что я <span>делаю</span></h2>
+  <p class="subtitle">Помогаю бизнесу получить сайт, который приносит клиентов</p>
+  <div class="services">
+    <div class="service">
+      <div class="icon">🚀</div>
+      <h3>Лендинг</h3>
+      <p>Одностраничный сайт под услугу или товар. Структура, тексты, формы заявок.</p>
+      <div class="price">от 3 000 ₽</div>
+    </div>
+    <div class="service">
+      <div class="icon">💼</div>
+      <h3>Сайт-визитка</h3>
+      <p>3–5 страниц: о компании, услуги, команда, контакты. Для серьёзного бизнеса.</p>
+      <div class="price">от 6 000 ₽</div>
+    </div>
+    <div class="service">
+      <div class="icon">🔧</div>
+      <h3>Доработка</h3>
+      <p>Есть сайт, но нужно что-то поправить, добавить или переделать? Сделаю.</p>
+      <div class="price">от 1 000 ₽</div>
+    </div>
+    <div class="service">
+      <div class="icon">🛠️</div>
+      <h3>Поддержка</h3>
+      <p>Обновление текстов, фото, мелкие правки. Ежемесячно, без головной боли.</p>
+      <div class="price">1 000 ₽/мес</div>
+    </div>
+  </div>
+</section>
+
+<section id="prices">
+  <div class="pricing">
+    <h2>Цены</h2>
+    <p class="subtitle">Честные цены без скрытых платежей</p>
+    <div class="price-table">
+      <div class="price-row">
+        <div>
+          <div class="name">Лендинг</div>
+          <div class="desc">Одна страница, форма заявки, адаптив</div>
+        </div>
+        <div class="amount">3 000 – 8 000 ₽</div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="name">Сайт-визитка</div>
+          <div class="desc">3–5 страниц, каталог, формы</div>
+        </div>
+        <div class="amount">6 000 – 15 000 ₽</div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="name">Доработка сайта</div>
+          <div class="desc">Правки, новые блоки, формы</div>
+        </div>
+        <div class="amount">от 1 000 ₽</div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="name">Поддержка</div>
+          <div class="desc">До 3 правок в месяц, консультации</div>
+        </div>
+        <div class="amount">1 000 ₽/мес</div>
+      </div>
+      <div class="price-row">
+        <div>
+          <div class="name">Срочный заказ</div>
+          <div class="desc">Сайт за 1–2 дня</div>
+        </div>
+        <div class="amount">+50% к цене</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <h2>Мои <span>работы</span></h2>
+  <p class="subtitle">Примеры сайтов, которые я сделал</p>
+  <div class="portfolio">
+    <div class="work">
+      <div class="work-img">🏭</div>
+      <div class="work-body">
+        <h3>МобилМаш</h3>
+        <p>Сайт для компании по поставке складской техники. Каталог, команда, формы заявок.</p>
+        <a href="http://mobilmash.pro" target="_blank">mobilmash.pro →</a>
+      </div>
+    </div>
+    <div class="work">
+      <div class="work-img">👟</div>
+      <div class="work-body">
+        <h3>BOOTS</h3>
+        <p>Демо-сайт магазина обуви. Каталог, отзывы, форма подбора.</p>
+        <a href="#">Смотреть пример →</a>
+      </div>
+    </div>
+    <div class="work">
+      <div class="work-img">🎓</div>
+      <div class="work-body">
+        <h3>Учебный проект</h3>
+        <p>Сайт, сделанный в рамках обучения. Структура, вёрстка, адаптив.</p>
+        <a href="#">Смотреть пример →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Как мы <span>работаем</span></h2>
+  <p class="subtitle">Простой процесс — от заявки до готового сайта</p>
+  <div class="steps">
+    <div class="step">
+      <div class="num">1</div>
+      <h3>Заявка</h3>
+      <p>Вы пишете, что нужно. Я задаю вопросы.</p>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <h3>Согласование</h3>
+      <p>Обсуждаем структуру, сроки и цену.</p>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <h3>Работа</h3>
+      <p>Делаю сайт, показываю по ссылке, вношу правки.</p>
+    </div>
+    <div class="step">
+      <div class="num">4</div>
+      <h3>Сдача</h3>
+      <p>Переношу на ваш хостинг, передаю исходники, выдаю чек.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="form-section">
+    <h2>Обсудить <span style="color:#60a5fa;">проект</span></h2>
+    <p>Оставьте заявку — отвечу в течение часа и подскажу, что подойдёт</p>
+    <form onsubmit="alert('Спасибо! Я свяжусь с вами в течение часа.'); return false;">
+      <input type="text" placeholder="Ваше имя" required>
+      <input type="tel" placeholder="Телефон или Telegram" required>
+      <select>
+        <option value="">Что нужно?</option>
+        <option>Лендинг</option>
+        <option>Сайт-визитка</option>
+        <option>Доработка сайта</option>
+        <option>Поддержка</option>
+        <option>Не знаю, нужна консультация</option>
+      </select>
+      <textarea placeholder="Опишите задачу (необязательно)"></textarea>
+      <button type="submit" class="btn btn-blue">Отправить заявку</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">[Имя]<span style="color:#60a5fa;">.</span>dev</div>
+  <div class="contacts">
+    <a href="tel:+79000000000">+7 (900) 000-00-00</a>
+    <a href="mailto:info@example.ru">info@example.ru</a>
+    <a href="#">Telegram</a>
+    <a href="#">ВКонтакте</a>
+  </div>
+  <div class="copy">© 2026 [Твоё Имя]. Все права защищены.</div>
+</footer>
+
+</body>
+</html>
